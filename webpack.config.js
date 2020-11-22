@@ -38,7 +38,7 @@ module.exports = (_, argv) => ({
       name: 'consumer',
       filename: 'remoteEntry.js',
       remotes: {
-        header: 'header@https://prod-test-header.vercel.app/remoteEntry.js'
+        header: 'header@https://prod-test-header.netlify.app/remoteEntry.js'
       },
       exposes: {},
       shared: require('./package.json').dependencies
