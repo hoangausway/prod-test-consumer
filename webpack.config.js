@@ -1,6 +1,21 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 
+const rules = [
+  {
+    test: /\.css$/i,
+    use: ['style-loader', 'css-loader']
+  },
+  {
+    test: /\.(js|jsx)$/,
+    loader: 'babel-loader',
+    exclude: /node_modules/,
+    options: {
+      presets: ['@babel/preset-react']
+    }
+  }
+]
+
 module.exports = (_, argv) => ({
   output: {
     publicPath:
@@ -16,28 +31,15 @@ module.exports = (_, argv) => ({
   devServer: {
     port: 8081
   },
-
-  module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader']
-      },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
-      }
-    ]
-  },
+  devtool: 'inline-source-map',
+  module: { rules },
 
   plugins: [
     new ModuleFederationPlugin({
       name: 'consumer',
       filename: 'remoteEntry.js',
       remotes: {
+        somemodulename: 'somemodulename@http://localhost:8080/remoteEntry.js',
         header: 'header@https://prod-test-header.netlify.app/remoteEntry.js'
       },
       exposes: {},
