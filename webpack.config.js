@@ -39,8 +39,7 @@ module.exports = (_, argv) => ({
       name: 'consumer',
       filename: 'remoteEntry.js',
       remotes: {
-        somemodulename: 'somemodulename@http://localhost:8080/remoteEntry.js',
-        header: 'header@https://prod-test-header.netlify.app/remoteEntry.js'
+        somemodulename: 'somemodulename@https://module-federation-exposes.netlify.app/remoteEntry.js'
       },
       exposes: {},
       shared: require('./package.json').dependencies
